@@ -1,4 +1,5 @@
 import { AvatarDropdown, AvatarName, Footer, Question, SelectLang } from '@/components';
+import { getAssetsFile } from '@/components/head-portrait';
 import { currentUser as queryCurrentUser } from '@/services/ant-design-pro/api';
 import { LinkOutlined } from '@ant-design/icons';
 import type { Settings as LayoutSettings } from '@ant-design/pro-components';
@@ -47,6 +48,12 @@ export async function getInitialState(): Promise<{
 }
 
 // ProLayout 支持的api https://procomponents.ant.design/components/layout
+/**
+ * @description: 用于修改 ProLayout 的配置
+ * 返回的logo属性就是左上角的小图标
+ * title就是名字
+ * 剩下的等补充
+ */
 export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) => {
   return {
     actionsRender: () => [<Question key="doc" />, <SelectLang key="SelectLang" />],
@@ -122,6 +129,8 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
       );
     },
     ...initialState?.settings,
+    title: 'YIDA',
+    logo: getAssetsFile(),
   };
 };
 

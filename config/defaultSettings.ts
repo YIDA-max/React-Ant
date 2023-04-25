@@ -1,5 +1,14 @@
+/*
+ * @Author: YIDA-max 3136271519@qq.com
+ * @Date: 2023-03-21 17:43:42
+ * @LastEditors: YIDA-max 3136271519@qq.com
+ * @LastEditTime: 2023-04-25 16:42:32
+ * @FilePath: /React-Ant/config/defaultSettings.ts
+ * @Description:这个文件是全局的静态的配置文件
+ *
+ * Copyright (c) 2023 by ${git_name_email}, All Rights Reserved.
+ */
 import { ProLayoutProps } from '@ant-design/pro-components';
-
 /**
  * @name
  */
@@ -15,9 +24,9 @@ const Settings: ProLayoutProps & {
   fixedHeader: false,
   fixSiderbar: true,
   colorWeak: false,
-  title: 'Ant Design Pro',
+  title: 'YIDA',
   pwa: true,
-  logo: 'https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg',
+  logo: 'https://avatars1.githubusercontent.com/u/8186664?s=460&v=4',
   iconfontUrl: '',
   token: {
     // 参见ts声明，demo 见文档，通过token 修改样式

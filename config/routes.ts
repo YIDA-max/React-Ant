@@ -1,4 +1,14 @@
-﻿/**
+﻿/*
+ * @Author: YIDA-max 3136271519@qq.com
+ * @Date: 2023-03-21 17:43:42
+ * @LastEditors: YIDA-max 3136271519@qq.com
+ * @LastEditTime: 2023-04-25 17:04:47
+ * @FilePath: /React-Ant/config/routes.ts
+ * @Description:路由配置文件
+ *
+ * Copyright (c) 2023 by ${git_name_email}, All Rights Reserved.
+ */
+/**
  * @name umi 的路由配置
  * @description 只支持 path,component,routes,redirect,wrappers,name,icon 的配置
  * @param path  path 只支持两种占位符配置，第一种是动态参数 :id 的形式，第二种是 * 通配符，通配符只能出现路由字符串的最后。
@@ -59,5 +69,12 @@ export default [
     path: '*',
     layout: false,
     component: './404',
+  },
+  {
+    name: 'pixiv',
+    path: '/pixiv',
+    icon: 'CoffeeOutlined',
+    component: './Pixiv',
+    footerRender: false,
   },
 ];
