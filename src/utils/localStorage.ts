@@ -15,13 +15,13 @@ export const getLocalStorage = async (key: string) => {
   // 获取数据
   const item = localStorage.getItem(key);
   if (!item) return null;
-  const data = JSON.parse(item);
+  const { data } = JSON.parse(item);
   if (Date.now() > data.expiration) {
     // 如果到期了,那就进行更新token
     const { access_token, refresh_token } = await RefreshToken(data.refresh_token);
     data.access_token = access_token;
     data.refresh_token = refresh_token;
-    setLocalStorage('pixivInfo', { data, expiration: Date.now() + 3600 * 1000 });
+    setLocalStorage('pixivInfo', { ...data });
     return data;
   }
   return data;

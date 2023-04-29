@@ -2,7 +2,7 @@
  * @Author: YIDA-max 3136271519@qq.com
  * @Date: 2023-04-25 18:03:06
  * @LastEditors: YIDA-max 3136271519@qq.com
- * @LastEditTime: 2023-04-29 20:36:20
+ * @LastEditTime: 2023-04-29 22:22:25
  * @FilePath: /React-Ant/src/pages/Pixiv/Login/index.tsx
  * @Description:登录组件
  *
@@ -45,7 +45,7 @@ const Login: React.FC = () => {
   useEffect(() => {
     const info = async () => {
       //在这里我们需要进行判断是否已经登录了,如果已经登录了,那么就不需要再次登录了,在localStorage中拿取到登录信息
-      const { data } = await getLocalStorage('pixivInfo');
+      const data = await getLocalStorage('pixivInfo');
       if (data) {
         // 如果存在,那么就直接设置到userInfo中
         setuserInfo(data);
@@ -60,7 +60,23 @@ const Login: React.FC = () => {
     <div>
       <h2>
         {userInfo.refresh_token ? (
-          <span style={{ color: 'green' }}>已登录</span>
+          <span
+            style={{ color: 'green' }}
+            onClick={() => {
+              console.log(
+                ' ',
+                {
+                  access_token: '2RFka5tatIj_THJC5izWODMGiMe0KRkndJLLKjJhgXA',
+                  expiration: 1682774935629,
+                  expires_in: 3600,
+                  refresh_token: 'cdgBOnOs50SleZ-4NMLg34U906KBnN2PNE6GPDcjMxE',
+                },
+                userInfo,
+              );
+            }}
+          >
+            已登录
+          </span>
         ) : (
           <span style={{ color: 'red' }}>未登录</span>
         )}
@@ -89,7 +105,7 @@ const Login: React.FC = () => {
         <UrlPixivInput code_verifier={code_verifier} />
       </h4>
       <h4>5:如果输入正确,那么就会进行提示说登录成功</h4>
-      <h4>6:你的账号名字:{userInfo.user.name}</h4>
+      <h4>6:你的账号名字:{userInfo?.user?.name}</h4>
     </div>
   );
 };
