@@ -2,7 +2,7 @@
  * @Author: YIDA-max 3136271519@qq.com
  * @Date: 2023-04-25 16:45:39
  * @LastEditors: YIDA-max 3136271519@qq.com
- * @LastEditTime: 2023-04-30 17:02:12
+ * @LastEditTime: 2023-05-01 14:50:21
  * @FilePath: /React-Ant/src/pages/Pixiv/index.tsx
  * @Description:pixiv页面的主文件
  *
@@ -20,20 +20,22 @@ const Pixiv: React.FC = () => {
   const { userInfo } = useModel('Pixiv');
   const PageInfo = [
     {
-      title: '第一步进行登录(!该功能是最核心的)',
+      title: '进行登录(!该功能是最核心的)',
       href: '',
       content: Login,
       index: 1,
       width: '100%',
       isShow: true,
+      isUnfold: userInfo.refresh_token ? true : false,
     },
     {
-      title: '获取推荐列表',
+      title: '推荐列表',
       href: '',
       content: Recommend,
       index: 2,
       width: '100%',
       isShow: userInfo.refresh_token ? true : false,
+      isUnfold: userInfo.refresh_token ? false : true,
     },
   ];
   const { initialState } = useModel('@@initialState');

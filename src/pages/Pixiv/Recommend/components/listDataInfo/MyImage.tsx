@@ -1,4 +1,5 @@
 import { Referer } from '@/api/Pixiv';
+import { Image } from 'antd';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 interface IndexProps {
@@ -14,8 +15,8 @@ const Index: React.FC<IndexProps> = ({ src }) => {
       setImage(`data:image/${fileType};base64,${base64}`);
     };
     info();
-  });
-  return <div>{image ? <img src={image} alt="image" /> : <div>加载中</div>}</div>;
+  }, [src]);
+  return <Image width={200} src={image} placeholder={true} />;
 };
 Index.propTypes = {
   src: PropTypes.string.isRequired,
