@@ -2,12 +2,13 @@
  * @Author: YIDA-max 3136271519@qq.com
  * @Date: 2023-04-25 18:03:06
  * @LastEditors: YIDA-max 3136271519@qq.com
- * @LastEditTime: 2023-04-29 22:22:25
+ * @LastEditTime: 2023-05-01 08:41:22
  * @FilePath: /React-Ant/src/pages/Pixiv/Login/index.tsx
  * @Description:登录组件
  *
  * Copyright (c) 2023 by ${git_name_email}, All Rights Reserved.
  */
+import { Recommend } from '@/api/Pixiv';
 import KeyWord from '@/components/KeyWord';
 import { getLocalStorage } from '@/utils/localStorage';
 import crypto from 'crypto';
@@ -62,17 +63,8 @@ const Login: React.FC = () => {
         {userInfo.refresh_token ? (
           <span
             style={{ color: 'green' }}
-            onClick={() => {
-              console.log(
-                ' ',
-                {
-                  access_token: '2RFka5tatIj_THJC5izWODMGiMe0KRkndJLLKjJhgXA',
-                  expiration: 1682774935629,
-                  expires_in: 3600,
-                  refresh_token: 'cdgBOnOs50SleZ-4NMLg34U906KBnN2PNE6GPDcjMxE',
-                },
-                userInfo,
-              );
+            onClick={async () => {
+              await Recommend({ ...userInfo, expire_time: 3600 });
             }}
           >
             已登录

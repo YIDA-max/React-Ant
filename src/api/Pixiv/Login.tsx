@@ -2,7 +2,7 @@
  * @Author: YIDA-max 3136271519@qq.com
  * @Date: 2023-04-26 19:51:20
  * @LastEditors: YIDA-max 3136271519@qq.com
- * @LastEditTime: 2023-04-29 20:27:18
+ * @LastEditTime: 2023-04-30 19:19:46
  * @FilePath: /React-Ant/src/api/Pixiv/Login.tsx
  * @Description:
  *
@@ -34,8 +34,7 @@ export const LoginInfo = (AUTH_CODE: string, code_verifier: string) => {
  */
 export const RefreshToken = (refresh_token: string) => {
   return request<{
-    access_token: string;
-    refresh_token: string;
+    data: any;
   }>('/pixiv/refresh', {
     method: 'POST',
     headers: {

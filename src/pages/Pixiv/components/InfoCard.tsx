@@ -2,8 +2,8 @@
  * @Author: YIDA-max 3136271519@qq.com
  * @Date: 2023-04-26 09:49:44
  * @LastEditors: YIDA-max 3136271519@qq.com
- * @LastEditTime: 2023-04-26 10:04:55
- * @FilePath: /React-Ant/src/pages/Pixiv/InfoCard.tsx
+ * @LastEditTime: 2023-04-30 11:15:33
+ * @FilePath: /React-Ant/src/pages/Pixiv/components/InfoCard.tsx
  * @Description:
  *
  * Copyright (c) 2023 by ${git_name_email}, All Rights Reserved.
@@ -17,9 +17,16 @@ import { theme } from 'antd';
 const InfoCard: React.FC<{
   title: string;
   index: number;
-  content: React.FC;
+  content?: React.FC;
   href: string;
-}> = ({ title, href, index, content }) => {
+}> = ({
+  title,
+  href,
+  index,
+  content = () => {
+    return <div></div>;
+  },
+}) => {
   const { useToken } = theme;
 
   const { token } = useToken();

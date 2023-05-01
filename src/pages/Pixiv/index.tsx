@@ -2,7 +2,7 @@
  * @Author: YIDA-max 3136271519@qq.com
  * @Date: 2023-04-25 16:45:39
  * @LastEditors: YIDA-max 3136271519@qq.com
- * @LastEditTime: 2023-04-26 10:07:50
+ * @LastEditTime: 2023-04-30 17:02:12
  * @FilePath: /React-Ant/src/pages/Pixiv/index.tsx
  * @Description:pixiv页面的主文件
  *
@@ -12,10 +12,30 @@ import { PageContainer } from '@ant-design/pro-components';
 import { useModel } from '@umijs/max';
 import { Card, theme } from 'antd';
 import React from 'react';
-import InfoCard from './InfoCard';
+import InfoCard from './components/InfoCard';
 import Login from './Login';
+import Recommend from './Recommend';
 const Pixiv: React.FC = () => {
   const { token } = theme.useToken();
+  const { userInfo } = useModel('Pixiv');
+  const PageInfo = [
+    {
+      title: '第一步进行登录(!该功能是最核心的)',
+      href: '',
+      content: Login,
+      index: 1,
+      width: '100%',
+      isShow: true,
+    },
+    {
+      title: '获取推荐列表',
+      href: '',
+      content: Recommend,
+      index: 2,
+      width: '100%',
+      isShow: userInfo.refresh_token ? true : false,
+    },
+  ];
   const { initialState } = useModel('@@initialState');
   return (
     <div>
@@ -68,30 +88,19 @@ const Pixiv: React.FC = () => {
                 gap: 16,
               }}
             >
-              <div
-                style={{
-                  width: '100%',
-                }}
-              >
-                <InfoCard
-                  index={1}
-                  href=""
-                  title="第一步进行登录(!该功能是最核心的)"
-                  content={Login}
-                />
-              </div>
-              {/* <InfoCard
-                index={2}
-                title="了解 ant design"
-                href=""
-                desc="antd 是基于 Ant Design 设计体系的 React UI 组件库，主要用于研发企业级中后台产品。"
-              />
-              <InfoCard
-                index={3}
-                title="了解 Pro Components"
-                href=""
-                desc="ProComponents 是一个基于 Ant Design 做了更高抽象的模板组件，以 一个组件就是一个页面为开发理念，为中后台开发带来更好的体验。"
-              /> */}
+              {PageInfo.map((item) => {
+                return (
+                  <div
+                    style={{
+                      width: item.width,
+                      display: item.isShow ? 'block' : 'none',
+                    }}
+                    key={item.index}
+                  >
+                    <InfoCard {...item} />
+                  </div>
+                );
+              })}
             </div>
           </div>
         </Card>
