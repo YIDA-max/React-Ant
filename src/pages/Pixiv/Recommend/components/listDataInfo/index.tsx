@@ -2,18 +2,17 @@
  * @Author: YIDA-max 3136271519@qq.com
  * @Date: 2023-04-30 11:58:20
  * @LastEditors: YIDA-max 3136271519@qq.com
- * @LastEditTime: 2023-05-01 21:47:15
- * @FilePath: /React-Ant/src/pages/Pixiv/Recommend/components/listDataInfo./listDataInfo.tsx
+ * @LastEditTime: 2023-05-03 18:38:05
+ * @FilePath: /React-Ant/src/pages/Pixiv/Recommend/components/listDataInfo/index.tsx
  * @Description:
  *
  * Copyright (c) 2023 by ${git_name_email}, All Rights Reserved.
  */
 import { Recommend } from '@/api/Pixiv';
 import { getLocalStorage } from '@/utils/localStorage';
-import { EllipsisOutlined, PlusOutlined } from '@ant-design/icons';
 import type { ActionType, ProColumns } from '@ant-design/pro-components';
-import { ProTable, TableDropdown } from '@ant-design/pro-components';
-import { Button, Dropdown, Space } from 'antd';
+import { ProTable } from '@ant-design/pro-components';
+import { Space } from 'antd';
 import React, { useRef } from 'react';
 import { expandedRowRender, handleExpand } from './expandedRowRender';
 interface Illustration {
@@ -87,27 +86,11 @@ const columns: ProColumns<Illustration>[] = [
     title: '操作',
     valueType: 'option',
     key: 'option',
-    render: (text, record, _, action) => [
-      <a
-        key="editable"
-        onClick={() => {
-          action?.startEditable?.(record.id);
-        }}
-      >
-        编辑
-      </a>,
-      <a target="_blank" rel="noopener noreferrer" key="view">
-        查看
-      </a>,
-      <TableDropdown
-        key="actionGroup"
-        onSelect={() => action?.reload()}
-        menus={[
-          { key: 'copy', name: '复制' },
-          { key: 'delete', name: '删除' },
-        ]}
-      />,
-    ],
+    // render: (text, record, _, action) => [
+    //   <Button rel="noopener noreferrer" key="view" onClick={() => {}}>
+    //     查看
+    //   </Button>,
+    // ],
   },
 ];
 
@@ -152,6 +135,7 @@ const Index: React.FC = () => {
         rowKey="id"
         search={{
           labelWidth: 'auto',
+          resetText: '推荐',
         }}
         options={{
           setting: {
@@ -165,41 +149,6 @@ const Index: React.FC = () => {
         }}
         dateFormatter="string"
         headerTitle="推荐内容"
-        toolBarRender={() => [
-          <Button
-            key="button"
-            icon={<PlusOutlined />}
-            onClick={() => {
-              actionRef.current?.reload();
-            }}
-            type="primary"
-          >
-            查看详情
-          </Button>,
-          <Dropdown
-            key="menu"
-            menu={{
-              items: [
-                {
-                  label: '1st item',
-                  key: '1',
-                },
-                {
-                  label: '2nd item',
-                  key: '1',
-                },
-                {
-                  label: '3rd item',
-                  key: '1',
-                },
-              ],
-            }}
-          >
-            <Button>
-              <EllipsisOutlined />
-            </Button>
-          </Dropdown>,
-        ]}
       />
     </div>
   );
