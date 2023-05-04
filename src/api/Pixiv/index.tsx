@@ -9,5 +9,6 @@
  * Copyright (c) 2023 by ${git_name_email}, All Rights Reserved.
  */
 import { Recommend, Referer } from './getData';
+import { getIllustrationInfo } from './illustration';
 import { LoginInfo, RefreshToken } from './Login';
-export { LoginInfo, RefreshToken, Recommend, Referer };
+export { LoginInfo, RefreshToken, Recommend, Referer, getIllustrationInfo };
