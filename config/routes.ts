@@ -2,7 +2,7 @@
  * @Author: YIDA-max 3136271519@qq.com
  * @Date: 2023-03-21 17:43:42
  * @LastEditors: YIDA-max 3136271519@qq.com
- * @LastEditTime: 2023-04-25 17:04:47
+ * @LastEditTime: 2023-05-04 11:07:17
  * @FilePath: /React-Ant/config/routes.ts
  * @Description:路由配置文件
  *
@@ -53,6 +53,11 @@ export default [
         name: 'sub-page',
         component: './Admin',
       },
+      {
+        path: '/admin/sub-page2',
+        name: 'sub-page',
+        component: './Admin',
+      },
     ],
   },
   {
@@ -74,7 +79,25 @@ export default [
     name: 'pixiv',
     path: '/pixiv',
     icon: 'CoffeeOutlined',
-    component: './Pixiv',
     footerRender: false,
+    routes: [
+      {
+        path: '/pixiv',
+        redirect: '/pixiv/PixivRecommend',
+      },
+      {
+        path: '/pixiv/PixivRecommend',
+        name: '推荐页面',
+        icon: 'CoffeeOutlined',
+        component: './Pixiv/PixivRecommend',
+      },
+      {
+        path: '/pixiv/PixivViewer/:id',
+        name: '详情页面',
+        icon: 'CoffeeOutlined',
+        component: './Pixiv/PixivViewer',
+        hideInMenu: true,
+      },
+    ],
   },
 ];

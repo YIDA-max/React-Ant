@@ -2,8 +2,8 @@
  * @Author: YIDA-max 3136271519@qq.com
  * @Date: 2023-04-30 11:58:20
  * @LastEditors: YIDA-max 3136271519@qq.com
- * @LastEditTime: 2023-05-03 18:38:05
- * @FilePath: /React-Ant/src/pages/Pixiv/Recommend/components/listDataInfo/index.tsx
+ * @LastEditTime: 2023-05-04 11:10:11
+ * @FilePath: /React-Ant/src/pages/Pixiv/PixivRecommend/Recommend/components/listDataInfo/index.tsx
  * @Description:
  *
  * Copyright (c) 2023 by ${git_name_email}, All Rights Reserved.
@@ -12,8 +12,9 @@ import { Recommend } from '@/api/Pixiv';
 import { getLocalStorage } from '@/utils/localStorage';
 import type { ActionType, ProColumns } from '@ant-design/pro-components';
 import { ProTable } from '@ant-design/pro-components';
-import { Space } from 'antd';
+import { Button, Space } from 'antd';
 import React, { useRef } from 'react';
+import { history } from 'umi';
 import { expandedRowRender, handleExpand } from './expandedRowRender';
 interface Illustration {
   id: number;
@@ -86,11 +87,17 @@ const columns: ProColumns<Illustration>[] = [
     title: '操作',
     valueType: 'option',
     key: 'option',
-    // render: (text, record, _, action) => [
-    //   <Button rel="noopener noreferrer" key="view" onClick={() => {}}>
-    //     查看
-    //   </Button>,
-    // ],
+    render: (text, record) => [
+      <Button
+        rel="noopener noreferrer"
+        key="view"
+        onClick={() => {
+          history.push(`/Pixiv/PixivViewer/${record.id}`);
+        }}
+      >
+        查看
+      </Button>,
+    ],
   },
 ];
 

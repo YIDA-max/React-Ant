@@ -23,6 +23,6 @@
     "./**/*.d.ts",
     "./**/*.ts",
     "./**/*.tsx",
-    "src/pages/Pixiv/Recommend/components/listDataInfo"
+    "src/pages/Pixiv/PixivRecommend/components/listDataInfo"
   ]
 }
