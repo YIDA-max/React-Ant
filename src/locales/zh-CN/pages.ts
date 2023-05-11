@@ -1,8 +1,8 @@
 /*
  * @Author: YIDA 3136271519@qq.com
  * @Date: 2023-03-21 17:43:42
- * @LastEditors: YIDA 3136271519@qq.com
- * @LastEditTime: 2023-04-25 15:19:43
+ * @LastEditors: YIDA-max 3136271519@qq.com
+ * @LastEditTime: 2023-05-11 10:41:04
  * @FilePath: /React-Ant/src/locales/zh-CN/pages.ts
  * @Description: 这个是国际化的中文页面
  *
@@ -72,4 +72,5 @@ export default {
   'pages.searchTable.tenThousand': '万',
   'pages.searchTable.batchDeletion': '批量删除',
   'pages.searchTable.batchApproval': '批量审批',
+  'pages.login.register.tab': '用户注册',
 };

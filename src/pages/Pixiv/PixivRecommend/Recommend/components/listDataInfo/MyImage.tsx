@@ -1,3 +1,13 @@
+/*
+ * @Author: YIDA-max 3136271519@qq.com
+ * @Date: 2023-05-04 10:16:26
+ * @LastEditors: YIDA-max 3136271519@qq.com
+ * @LastEditTime: 2023-05-10 15:05:25
+ * @FilePath: /React-Ant/src/pages/Pixiv/PixivRecommend/Recommend/components/listDataInfo/MyImage.tsx
+ * @Description:
+ *
+ * Copyright (c) 2023 by ${git_name_email}, All Rights Reserved.
+ */
 import { Referer } from '@/api/Pixiv';
 import { Image } from 'antd';
 import PropTypes from 'prop-types';
