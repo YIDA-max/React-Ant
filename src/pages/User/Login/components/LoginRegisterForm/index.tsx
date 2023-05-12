@@ -2,7 +2,7 @@
  * @Author: YIDA-max 3136271519@qq.com
  * @Date: 2023-05-11 11:07:30
  * @LastEditors: YIDA-max 3136271519@qq.com
- * @LastEditTime: 2023-05-11 17:30:04
+ * @LastEditTime: 2023-05-12 16:03:43
  * @FilePath: /React-Ant/src/pages/User/Login/components/LoginRegisterForm/index.tsx
  * @Description:
  *
@@ -69,6 +69,9 @@ const Index: React.FC = () => {
                     passwordCopy: string;
                     email: string;
                     phone: string;
+                  },
+                  () => {
+                    setType('account');
                   },
                 );
                 break;
