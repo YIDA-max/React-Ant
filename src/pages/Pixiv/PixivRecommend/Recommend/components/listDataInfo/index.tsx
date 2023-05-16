@@ -2,14 +2,14 @@
  * @Author: YIDA-max 3136271519@qq.com
  * @Date: 2023-04-30 11:58:20
  * @LastEditors: YIDA-max 3136271519@qq.com
- * @LastEditTime: 2023-05-04 11:10:11
+ * @LastEditTime: 2023-05-16 15:20:51
  * @FilePath: /React-Ant/src/pages/Pixiv/PixivRecommend/Recommend/components/listDataInfo/index.tsx
  * @Description:
  *
  * Copyright (c) 2023 by ${git_name_email}, All Rights Reserved.
  */
 import { Recommend } from '@/api/Pixiv';
-import { getLocalStorage } from '@/utils/localStorage';
+import { getPixivLocalStorage } from '@/utils/localStorage';
 import type { ActionType, ProColumns } from '@ant-design/pro-components';
 import { ProTable } from '@ant-design/pro-components';
 import { Button, Space } from 'antd';
@@ -120,7 +120,7 @@ const Index: React.FC = () => {
         actionRef={actionRef}
         cardBordered
         request={async () => {
-          const userInfo = await getLocalStorage('pixivInfo');
+          const userInfo = await getPixivLocalStorage('pixivInfo');
           const { data } = await Recommend(
             { ...userInfo, expire_time: 3600 },
             {

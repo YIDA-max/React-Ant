@@ -2,7 +2,7 @@
  * @Author: YIDA-max 3136271519@qq.com
  * @Date: 2023-05-11 16:10:48
  * @LastEditors: YIDA-max 3136271519@qq.com
- * @LastEditTime: 2023-05-12 16:02:51
+ * @LastEditTime: 2023-05-16 15:51:39
  * @FilePath: /React-Ant/src/pages/User/Login/components/LoginRegisterForm/utils/login.tsx
  * @Description:
  *
@@ -10,10 +10,10 @@
  */
 
 import { login, register } from '@/services/ant-design-pro/api';
+import { setLocalStorage } from '@/utils/localStorage';
 import { history, useModel } from '@umijs/max';
 import { message } from 'antd';
 import { flushSync } from 'react-dom';
-
 export const useLoginOrRegister = () => {
   // 添加权限的功能函数
   const { initialState, setInitialState } = useModel('@@initialState');
@@ -33,6 +33,8 @@ export const useLoginOrRegister = () => {
       // 登录
       const msg = await login({ ...value });
       if (msg.status === 'ok') {
+        // 把token存到localStorage里面
+        setLocalStorage('token', { token: msg.token }, 2 * 60 * 60 * 1000);
         message.success('登录成功！');
         await fetchUserInfo();
         const urlParams = new URL(window.location.href).searchParams;

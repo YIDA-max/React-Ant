@@ -2,7 +2,7 @@
  * @Author: YIDA-max 3136271519@qq.com
  * @Date: 2023-04-26 15:51:05
  * @LastEditors: YIDA-max 3136271519@qq.com
- * @LastEditTime: 2023-05-12 15:59:15
+ * @LastEditTime: 2023-05-16 15:49:01
  * @FilePath: /React-Ant/src/services/ant-design-pro/api.ts
  * @Description:
  *
@@ -10,14 +10,18 @@
  */
 // @ts-ignore
 /* eslint-disable */
+import { getLocalStorage } from '@/utils/localStorage';
 import { request } from '@umijs/max';
-
 /** 获取当前的用户 GET /api/currentUser */
 export async function currentUser(options?: { [key: string]: any }) {
+  const data = await getLocalStorage('token');
   return request<{
     data: API.CurrentUser;
   }>('/api/currentUser', {
     method: 'GET',
+    headers: {
+      Authorization: 'Bearer ' + data.token, // 这里的 token 是你需要添加的 token
+    },
     ...(options || {}),
   });
 }

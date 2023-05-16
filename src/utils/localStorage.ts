@@ -2,7 +2,7 @@
  * @Author: YIDA-max 3136271519@qq.com
  * @Date: 2023-04-29 19:36:05
  * @LastEditors: YIDA-max 3136271519@qq.com
- * @LastEditTime: 2023-05-01 10:00:49
+ * @LastEditTime: 2023-05-16 15:52:58
  * @FilePath: /React-Ant/src/utils/localStorage.ts
  * @Description:
  *
@@ -10,12 +10,17 @@
  */
 import { RefreshToken } from '@/api/Pixiv';
 // 这个文件里面的方法是为了方便存储localStorage的
-export const setLocalStorage = (key: string, value: any, expiration = Date.now() + 3600 * 1000) => {
+export const setPixivLocalStorage = (
+  key: string,
+  value: any,
+  expiration = Date.now() + 3600 * 1000,
+) => {
   // 存储数据
   const item = { data: { ...value, expiration } };
   localStorage.setItem(key, JSON.stringify(item));
 };
-export const getLocalStorage = async (key: string) => {
+// 获取到pixiv的token过期数据
+export const getPixivLocalStorage = async (key: string) => {
   // 获取数据
   const item = localStorage.getItem(key);
   if (!item) return null;
@@ -27,7 +32,31 @@ export const getLocalStorage = async (key: string) => {
     data.refresh_token = newData.refresh_token;
     data.response.access_token = newData.access_token;
     data.response.refresh_token = newData.refresh_token;
-    setLocalStorage('pixivInfo', data, Date.now() + 3600 * 1000);
+    setPixivLocalStorage('pixivInfo', data, Date.now() + 3600 * 1000);
   }
   return data;
+};
+export const getLocalStorage = async (key: string) => {
+  // 获取数据
+  const item = localStorage.getItem(key);
+  if (!item) return null;
+  const { data } = JSON.parse(item);
+  const currentTime = new Date().getTime();
+
+  // 检查数据是否已经过期
+  if (currentTime > data.expiry) {
+    // 如果已经过期，删除数据并返回 null
+    localStorage.removeItem(key);
+    return null;
+  }
+  return data;
+};
+// 这个文件里面的方法是为了方便存储localStorage的
+export const setLocalStorage = (key: string, value: object, ttl: number) => {
+  // 存储数据
+  const item = { data: { ...value, expiry: new Date().getTime() + ttl } };
+  localStorage.setItem(key, JSON.stringify(item));
+};
+export const clearLocalStorage = (key: string) => {
+  localStorage.removeItem(key);
 };
