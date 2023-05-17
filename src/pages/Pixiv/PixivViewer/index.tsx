@@ -2,17 +2,18 @@
  * @Author: YIDA-max 3136271519@qq.com
  * @Date: 2023-05-04 10:55:07
  * @LastEditors: YIDA-max 3136271519@qq.com
- * @LastEditTime: 2023-05-04 14:53:27
+ * @LastEditTime: 2023-05-16 16:20:10
  * @FilePath: /React-Ant/src/pages/Pixiv/PixivViewer/index.tsx
  * @Description:
  *
  * Copyright (c) 2023 by ${git_name_email}, All Rights Reserved.
  */
 import { getIllustrationInfo } from '@/api/Pixiv';
-import { useModel } from '@umijs/max';
+import { getPixivLocalStorage } from '@/utils/localStorage';
+import { useParams } from '@umijs/max';
 import PropTypes from 'prop-types';
-import React, { useEffect } from 'react';
-import { useParams } from 'umi';
+import { useEffect } from 'react';
+
 interface IndexProps {
   name: string;
   message: object;
@@ -20,12 +21,11 @@ interface IndexProps {
 }
 
 const Index: React.FC<IndexProps> = () => {
-  const { userInfo } = useModel('Pixiv');
   const { id } = useParams();
-
   useEffect(() => {
     const onMount = async () => {
-      const data = await getIllustrationInfo(userInfo, id as unknown as number);
+      const pixiv = await getPixivLocalStorage('pixivInfo');
+      const { data } = await getIllustrationInfo(pixiv, id as unknown as number);
       console.log(' ', data);
     };
     onMount();

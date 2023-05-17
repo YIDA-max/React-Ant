@@ -2,7 +2,7 @@
  * @Author: YIDA-max 3136271519@qq.com
  * @Date: 2023-03-21 17:43:42
  * @LastEditors: YIDA-max 3136271519@qq.com
- * @LastEditTime: 2023-05-04 11:07:17
+ * @LastEditTime: 2023-05-17 11:04:01
  * @FilePath: /React-Ant/config/routes.ts
  * @Description:路由配置文件
  *
@@ -97,6 +97,24 @@ export default [
         icon: 'CoffeeOutlined',
         component: './Pixiv/PixivViewer',
         hideInMenu: true,
+      },
+    ],
+  },
+  {
+    name: '笔趣阁',
+    path: '/fiction',
+    icon: 'FileTextOutlined',
+    footerRender: false,
+    routes: [
+      {
+        path: '/fiction',
+        redirect: '/fiction/FictionList',
+      },
+      {
+        path: '/fiction/FictionList',
+        name: '小说列表',
+        icon: 'FileTextOutlined',
+        component: './Fiction/FictionList',
       },
     ],
   },
