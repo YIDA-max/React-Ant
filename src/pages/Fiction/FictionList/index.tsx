@@ -2,60 +2,19 @@
  * @Author: YIDA-max 3136271519@qq.com
  * @Date: 2023-04-30 11:58:20
  * @LastEditors: YIDA-max 3136271519@qq.com
- * @LastEditTime: 2023-05-17 16:24:28
+ * @LastEditTime: 2023-05-18 10:45:45
  * @FilePath: /React-Ant/src/pages/Fiction/FictionList/index.tsx
  * @Description:
  *
  * Copyright (c) 2023 by ${git_name_email}, All Rights Reserved.
  */
 import { getBookList, searchBook } from '@/api/Fiction/FictionList';
-import type { ActionType, ProColumns } from '@ant-design/pro-components';
-import { ProTable } from '@ant-design/pro-components';
+import { ActionType, ProTable } from '@ant-design/pro-components';
 import React, { useRef } from 'react';
-interface Illustration {
-  author: string;
-  latestChapter: string;
-  novelTitle: string;
-  tag: string;
-  url: string;
-}
-const columns: ProColumns<Illustration>[] = [
-  {
-    title: '关键字查询',
-    dataIndex: 'keyword',
-    width: 100,
-    hideInTable: true,
-  },
-  {
-    title: '作者',
-    dataIndex: 'author',
-    width: 100,
-    hideInSearch: true,
-  },
-  {
-    title: '作品',
-    dataIndex: 'novelTitle',
-    width: 100,
-    hideInSearch: true,
-  },
-  {
-    title: '最新章节',
-    dataIndex: 'latestChapter',
-    width: 100,
-    hideInSearch: true,
-  },
-  {
-    title: '地址',
-    dataIndex: 'url',
-    width: 100,
-    copyable: true,
-    hideInSearch: true,
-  },
-];
-
+import { Illustration, useGetColumns } from './config/index';
 const Index: React.FC = () => {
   const actionRef = useRef<ActionType>();
-
+  const { FictionListIndexColumns } = useGetColumns();
   return (
     <div
       id="scrollableDiv"
@@ -65,7 +24,7 @@ const Index: React.FC = () => {
       }}
     >
       <ProTable<Illustration>
-        columns={columns}
+        columns={FictionListIndexColumns}
         actionRef={actionRef}
         cardBordered
         request={async (params) => {

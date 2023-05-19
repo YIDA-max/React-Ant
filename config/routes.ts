@@ -2,7 +2,7 @@
  * @Author: YIDA-max 3136271519@qq.com
  * @Date: 2023-03-21 17:43:42
  * @LastEditors: YIDA-max 3136271519@qq.com
- * @LastEditTime: 2023-05-17 11:04:01
+ * @LastEditTime: 2023-05-18 16:52:44
  * @FilePath: /React-Ant/config/routes.ts
  * @Description:路由配置文件
  *
@@ -115,6 +115,13 @@ export default [
         name: '小说列表',
         icon: 'FileTextOutlined',
         component: './Fiction/FictionList',
+      },
+      {
+        path: '/fiction/FictionInfo/:url',
+        name: '小说阅读',
+        icon: 'CoffeeOutlined',
+        component: './Fiction/FictionInfo',
+        hideInMenu: true,
       },
     ],
   },
