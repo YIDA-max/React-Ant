@@ -23,7 +23,6 @@ interface Illustration {
   };
 }
 const App: React.FC<Illustration> = ({ record }) => {
-  console.log(' ', record);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [info, setInfo] = React.useState<{
     intro: string;

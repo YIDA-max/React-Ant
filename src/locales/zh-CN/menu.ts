@@ -1,3 +1,13 @@
+/*
+ * @Author: YIDA-max 3136271519@qq.com
+ * @Date: 2023-03-21 17:43:42
+ * @LastEditors: YIDA-max 3136271519@qq.com
+ * @LastEditTime: 2023-05-22 10:07:26
+ * @FilePath: /React-Ant/src/locales/zh-CN/menu.ts
+ * @Description:
+ *
+ * Copyright (c) 2023 by ${git_name_email}, All Rights Reserved.
+ */
 export default {
   'menu.welcome': '欢迎',
   'menu.more-blocks': '更多区块',
@@ -49,4 +59,11 @@ export default {
   'menu.editor.flow': '流程编辑器',
   'menu.editor.mind': '脑图编辑器',
   'menu.editor.koni': '拓扑编辑器',
+  'menu.pixiv': 'pixiv',
+  'menu.pixiv.推荐页面': '推荐页面',
+  'menu.pixiv.详情页面': '详情页面',
+  'menu.笔趣阁': '笔趣阁',
+  'menu.笔趣阁.小说列表': '小说列表',
+  'menu.笔趣阁.小说阅读': '小说阅读',
+  'menu.笔趣阁.我的书架': '我的书架',
 };

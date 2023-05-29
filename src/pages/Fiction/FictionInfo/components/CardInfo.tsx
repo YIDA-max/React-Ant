@@ -2,15 +2,16 @@
  * @Author: YIDA-max 3136271519@qq.com
  * @Date: 2023-05-18 16:43:05
  * @LastEditors: YIDA-max 3136271519@qq.com
- * @LastEditTime: 2023-05-19 15:24:58
+ * @LastEditTime: 2023-05-19 17:46:47
  * @FilePath: /React-Ant/src/pages/Fiction/FictionInfo/components/CardInfo.tsx
  * @Description:
  *
  * Copyright (c) 2023 by ${git_name_email}, All Rights Reserved.
  */
-import { Button, Card } from 'antd';
+import { Button, Card, Typography } from 'antd';
 import { useRef } from 'react';
 import { history } from 'umi';
+import InfoModal from '../../components/InfoModal';
 interface IBookText {
   title: string;
   content: Array<string>;
@@ -44,6 +45,19 @@ const Index: React.FC<IBookText> = (bookText) => {
           height: '600px',
           overflow: 'auto',
         }}
+        extra={[
+          <InfoModal
+            key={'info'}
+            record={{
+              id: 'Key',
+              author: 'string',
+              latestChapter: 'string',
+              novelTitle: bookText.title,
+              tag: 'string',
+              url: bookText.url,
+            }}
+          />,
+        ]}
         actions={[
           <Button
             onClick={() => {
@@ -70,8 +84,12 @@ const Index: React.FC<IBookText> = (bookText) => {
           </Button>,
         ]}
       >
-        {bookText.content.map((item) => {
-          return <p key={item}>{item}</p>;
+        {bookText.content.map((item, index) => {
+          return (
+            <div key={item + index}>
+              <Typography.Text>{item}</Typography.Text>
+            </div>
+          );
         })}
       </Card>
     </div>
