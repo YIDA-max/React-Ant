@@ -2,7 +2,7 @@
  * @Author: YIDA-max 3136271519@qq.com
  * @Date: 2023-04-29 19:36:05
  * @LastEditors: YIDA-max 3136271519@qq.com
- * @LastEditTime: 2023-05-16 15:52:58
+ * @LastEditTime: 2023-05-30 15:35:54
  * @FilePath: /React-Ant/src/utils/localStorage.ts
  * @Description:
  *
@@ -52,7 +52,11 @@ export const getLocalStorage = async (key: string) => {
   return data;
 };
 // 这个文件里面的方法是为了方便存储localStorage的
-export const setLocalStorage = (key: string, value: object, ttl: number) => {
+export const setLocalStorage = (
+  key: string,
+  value: object,
+  ttl: number = 1000 * 60 * 60 * 24 * 365,
+) => {
   // 存储数据
   const item = { data: { ...value, expiry: new Date().getTime() + ttl } };
   localStorage.setItem(key, JSON.stringify(item));

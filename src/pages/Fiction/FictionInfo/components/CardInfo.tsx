@@ -2,14 +2,14 @@
  * @Author: YIDA-max 3136271519@qq.com
  * @Date: 2023-05-18 16:43:05
  * @LastEditors: YIDA-max 3136271519@qq.com
- * @LastEditTime: 2023-05-19 17:46:47
+ * @LastEditTime: 2023-05-30 16:08:48
  * @FilePath: /React-Ant/src/pages/Fiction/FictionInfo/components/CardInfo.tsx
  * @Description:
  *
  * Copyright (c) 2023 by ${git_name_email}, All Rights Reserved.
  */
+import { useScrollToTop } from '@/utils/scrollToTop';
 import { Button, Card, Typography } from 'antd';
-import { useRef } from 'react';
 import { history } from 'umi';
 import InfoModal from '../../components/InfoModal';
 interface IBookText {
@@ -20,20 +20,7 @@ interface IBookText {
   url: string;
 }
 const Index: React.FC<IBookText> = (bookText) => {
-  const cardContentRef = useRef<HTMLDivElement>(null);
-
-  const scrollToTop = () => {
-    const element = cardContentRef.current;
-    if (!element) return;
-
-    const step = () => {
-      element.scrollTop = element.scrollTop - 50; // 可以调整这个数值来控制滚动速度
-      if (element.scrollTop > 0) {
-        window.requestAnimationFrame(step);
-      }
-    };
-    window.requestAnimationFrame(step);
-  };
+  const { cardContentRef, scrollToTop } = useScrollToTop();
   return (
     <div>
       <Card

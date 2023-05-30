@@ -1,3 +1,13 @@
+/*
+ * @Author: YIDA-max 3136271519@qq.com
+ * @Date: 2023-05-18 16:43:05
+ * @LastEditors: YIDA-max 3136271519@qq.com
+ * @LastEditTime: 2023-05-30 16:06:37
+ * @FilePath: /React-Ant/src/pages/Fiction/FictionInfo/index.tsx
+ * @Description:
+ *
+ * Copyright (c) 2023 by ${git_name_email}, All Rights Reserved.
+ */
 import { getBookText } from '@/api/Fiction/FictionList';
 import { useParams } from '@umijs/max';
 import { Card, message } from 'antd';
@@ -23,8 +33,10 @@ const Index: React.FC = () => {
     const onMount = async () => {
       // 如果url是空白就需要返回
       if (url !== 'undefined') {
-        const { data } = await getBookText(url as string);
-        setBookText(data);
+        const data = await getBookText(url as string);
+        if (data.data) {
+          setBookText(data.data);
+        }
       } else {
         message.error('章节错误');
         history.push('/fiction/FictionList');
