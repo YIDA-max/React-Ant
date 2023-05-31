@@ -2,7 +2,7 @@
  * @Author: YIDA-max 3136271519@qq.com
  * @Date: 2023-05-04 10:16:26
  * @LastEditors: YIDA-max 3136271519@qq.com
- * @LastEditTime: 2023-05-10 15:05:25
+ * @LastEditTime: 2023-05-31 11:29:29
  * @FilePath: /React-Ant/src/pages/Pixiv/PixivRecommend/Recommend/components/listDataInfo/MyImage.tsx
  * @Description:
  *
@@ -21,8 +21,8 @@ const Index: React.FC<IndexProps> = ({ src }) => {
   useEffect(() => {
     const info = async () => {
       const fileType = src.split('.').pop(); // 获取图片名称，与原代码类似
-      const { base64 } = await Referer(src);
-      setImage(`data:image/${fileType};base64,${base64}`);
+      const data = await Referer(src);
+      setImage(`data:image/${fileType};base64,${data?.base64}`);
     };
     info();
   }, [src]);
