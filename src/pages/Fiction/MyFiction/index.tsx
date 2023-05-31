@@ -2,7 +2,7 @@
  * @Author: YIDA-max 3136271519@qq.com
  * @Date: 2023-05-22 10:06:45
  * @LastEditors: YIDA-max 3136271519@qq.com
- * @LastEditTime: 2023-05-30 14:12:00
+ * @LastEditTime: 2023-05-31 10:56:28
  * @FilePath: /React-Ant/src/pages/Fiction/MyFiction/index.tsx
  * @Description:
  *
@@ -31,11 +31,7 @@ const Index: React.FC<IndexProps> = () => {
         <BookContent FictionItemName={FictionItemName} />
       </div>
       <div>
-        <UpData
-          callBack={function (): void {
-            throw new Error('Function not implemented.');
-          }}
-        />
+        <UpData callBack={function (): void {}} />
       </div>
     </div>
   );
