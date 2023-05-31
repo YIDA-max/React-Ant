@@ -1,53 +1,39 @@
 import { getMyFictionItemContent, getMyFictionItemInfo } from '@/api/Fiction/upData';
 import { getLocalStorage, setLocalStorage } from '@/utils/localStorage';
-import { Affix, Button } from 'antd';
+import { SearchOutlined } from '@ant-design/icons';
+import { Affix, Button, Tooltip } from 'antd';
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React, { RefObject, useRef, useState } from 'react';
 import styles from './styles.less';
-interface IndexProps {
-  FictionItemName: string;
-  callback: (value: {
-    data: string;
-    title: string;
-    nextTitle: string;
-    prevTitle: string;
-    nextId: string;
-    prevId: string;
-    filename: string;
-    index?: number;
-    FictionItemInfo?: any;
-  }) => void;
-}
-interface IFictionItemInfo {
-  toc: Array<{
-    href: string;
-    id: string;
-    level: number;
-    'media-type': string;
-    order: number;
-    title: string;
-  }>;
-  title: string;
-  date: string;
-  creator: string;
-  filename: string;
-}
-
+import { IFictionItemInfo, IndexProps } from './types/TableOfContents';
+// 定位目录位置的方法
+const toScrollIntoView = (myButtonRef: RefObject<HTMLElement>) => {
+  if (myButtonRef && myButtonRef.current)
+    myButtonRef.current.scrollIntoView({
+      behavior: 'smooth',
+      block: 'nearest',
+      inline: 'start',
+    });
+};
 const Index: React.FC<IndexProps> = ({ FictionItemName, callback }) => {
+  // 小说目录详情
   const [FictionItemInfo, setsFictionItemInfo] = React.useState<IFictionItemInfo>({
     toc: [],
     title: '',
     date: '',
     creator: '',
     filename: '',
-  }); // 小说目录详情
+  });
+  // 小说确定章节的详情
   const [ItemState, setItemState] = React.useState<{
     id: string;
   }>({
     id: '',
-  }); // 小说确定章节的详情
+  });
+  // 当前整个目录组件最大的ref
   const [container, setContainer] = useState<HTMLDivElement | null>(null);
-
+  // 定位到当前章节的ref
+  const myButtonRef = useRef<HTMLElement>(null);
   // 一但FictionItemName变化,就重新查询
   React.useEffect(() => {
     if (FictionItemName) {
@@ -61,9 +47,10 @@ const Index: React.FC<IndexProps> = ({ FictionItemName, callback }) => {
       });
     }
   }, [FictionItemName]);
-  // 一开始的时候执行一次查询,看看是否有保存的进度
+  // 初始化的时候进行初始化操作,比如说从localStorage中获取数据,定位目录结构
   React.useEffect(() => {
     const onMount = async () => {
+      // 获取localStorage中的数据
       const info = await getLocalStorage('BookTableOfContentsInfo');
       const state = await getLocalStorage('BookTableOfContentsItemState');
       if (info) {
@@ -72,9 +59,21 @@ const Index: React.FC<IndexProps> = ({ FictionItemName, callback }) => {
       if (state) {
         setItemState(state.state);
       }
+      // 定位目录结构
+      while (true) {
+        if (myButtonRef.current) {
+          toScrollIntoView(myButtonRef);
+          break;
+        } else {
+          await new Promise((resolve) => {
+            setTimeout(resolve, 100);
+          });
+        }
+      }
     };
     onMount();
   }, []);
+  // 修改正文的方法
   const onBookData = async (item: IFictionItemInfo['toc'][0], index: number) => {
     const { data } = await getMyFictionItemContent({
       id: item.id,
@@ -100,12 +99,31 @@ const Index: React.FC<IndexProps> = ({ FictionItemName, callback }) => {
       },
     });
   };
+
   return (
     <div className={styles.TableOfContents} ref={setContainer}>
-      <Affix target={() => container}>
-        <Button type="primary" onClick={() => {}}>
-          回到顶部
-        </Button>
+      <Affix
+        target={() => container}
+        style={{
+          position: 'fixed',
+          top: 0,
+          right: 0,
+        }}
+      >
+        <Tooltip title="点击跳转到当前章节">
+          <Button
+            type="primary"
+            shape="circle"
+            icon={<SearchOutlined />}
+            onClick={() => {
+              toScrollIntoView(myButtonRef);
+            }}
+            style={{
+              opacity: 1,
+              zIndex: 9999,
+            }}
+          />
+        </Tooltip>
       </Affix>
       <div>目录:</div>
       {FictionItemInfo?.toc?.map((item, index) => {
@@ -122,6 +140,7 @@ const Index: React.FC<IndexProps> = ({ FictionItemName, callback }) => {
               onClick={async () => {
                 onBookData(item, index);
               }}
+              ref={item.id === ItemState.id ? myButtonRef : null}
             >
               {item.title}
             </Button>
@@ -131,7 +150,6 @@ const Index: React.FC<IndexProps> = ({ FictionItemName, callback }) => {
     </div>
   );
 };
-
 Index.propTypes = {
   FictionItemName: PropTypes.string.isRequired,
 };
