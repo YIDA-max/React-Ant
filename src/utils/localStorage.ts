@@ -2,7 +2,7 @@
  * @Author: YIDA-max 3136271519@qq.com
  * @Date: 2023-04-29 19:36:05
  * @LastEditors: YIDA-max 3136271519@qq.com
- * @LastEditTime: 2023-05-30 15:35:54
+ * @LastEditTime: 2023-05-31 14:47:43
  * @FilePath: /React-Ant/src/utils/localStorage.ts
  * @Description:
  *
@@ -27,11 +27,11 @@ export const getPixivLocalStorage = async (key: string) => {
   const { data } = JSON.parse(item);
   if (Date.now() > data.expiration) {
     // 如果到期了,那就进行更新token
-    const { data: newData } = await RefreshToken(data.refresh_token);
-    data.access_token = newData.access_token;
-    data.refresh_token = newData.refresh_token;
-    data.response.access_token = newData.access_token;
-    data.response.refresh_token = newData.refresh_token;
+    const reshToken = await RefreshToken(data.refresh_token);
+    data.access_token = reshToken?.data.access_token;
+    data.refresh_token = reshToken?.data.refresh_token;
+    data.response.access_token = reshToken?.data.access_token;
+    data.response.refresh_token = reshToken?.data.refresh_token;
     setPixivLocalStorage('pixivInfo', data, Date.now() + 3600 * 1000);
   }
   return data;
