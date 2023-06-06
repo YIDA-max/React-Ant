@@ -2,7 +2,7 @@
  * @Author: YIDA-max 3136271519@qq.com
  * @Date: 2023-03-21 17:43:42
  * @LastEditors: YIDA-max 3136271519@qq.com
- * @LastEditTime: 2023-05-22 10:08:06
+ * @LastEditTime: 2023-06-05 16:49:08
  * @FilePath: /React-Ant/config/routes.ts
  * @Description:路由配置文件
  *
@@ -128,6 +128,24 @@ export default [
         name: '我的书架',
         icon: 'CoffeeOutlined',
         component: './Fiction/MyFiction',
+      },
+    ],
+  },
+  {
+    name: '漫画柜',
+    path: '/comics',
+    icon: 'FileTextOutlined',
+    footerRender: false,
+    routes: [
+      {
+        path: '/comics',
+        redirect: '/comics/comicsList',
+      },
+      {
+        path: '/comics/comicsList',
+        name: '漫画列表',
+        icon: 'FileTextOutlined',
+        component: './comics/comicsList',
       },
     ],
   },

@@ -2,7 +2,7 @@
  * @Author: YIDA-max 3136271519@qq.com
  * @Date: 2023-05-30 10:43:53
  * @LastEditors: YIDA-max 3136271519@qq.com
- * @LastEditTime: 2023-05-30 17:17:05
+ * @LastEditTime: 2023-06-05 14:47:06
  * @FilePath: /React-Ant/src/pages/Fiction/MyFiction/components/BookContent/index.tsx
  * @Description:
  *
@@ -51,9 +51,10 @@ const Index: React.FC<IndexProps> = ({ FictionItemName }) => {
         FictionItemName={FictionItemName}
         callback={function (value: IhtemlInfo): void {
           setHtemlInfo(value);
-          setLocalStorage('BookContentHtml', {
-            info: value,
-          });
+          if (value.data.length < 4900000)
+            setLocalStorage('BookContentHtml', {
+              info: value,
+            });
         }}
       />
       <Content htemlInfo={htemlInfo} />

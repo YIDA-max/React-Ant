@@ -2,7 +2,7 @@
  * @Author: YIDA-max 3136271519@qq.com
  * @Date: 2023-04-26 15:33:30
  * @LastEditors: YIDA-max 3136271519@qq.com
- * @LastEditTime: 2023-04-29 17:18:08
+ * @LastEditTime: 2023-06-06 16:15:29
  * @FilePath: /React-Ant/src/utils/request.ts
  * @Description:
  *
@@ -70,7 +70,7 @@ const errorHandler = (error: any) => {
 //对 extend 实例进行简单的封装
 export const request = extend({
   prefix: '/api', // 统一的请求前缀
-  timeout: 3000, // 超时时间
+  timeout: 30000, // 超时时间
   headers: {
     // headers中搭载token等请求头信息
     Authentication: localStorage.getItem('token') || '',

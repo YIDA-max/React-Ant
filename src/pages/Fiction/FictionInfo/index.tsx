@@ -2,7 +2,7 @@
  * @Author: YIDA-max 3136271519@qq.com
  * @Date: 2023-05-18 16:43:05
  * @LastEditors: YIDA-max 3136271519@qq.com
- * @LastEditTime: 2023-05-30 16:06:37
+ * @LastEditTime: 2023-06-05 10:58:31
  * @FilePath: /React-Ant/src/pages/Fiction/FictionInfo/index.tsx
  * @Description:
  *
@@ -34,7 +34,7 @@ const Index: React.FC = () => {
       // 如果url是空白就需要返回
       if (url !== 'undefined') {
         const data = await getBookText(url as string);
-        if (data.data) {
+        if (data?.data) {
           setBookText(data.data);
         }
       } else {
