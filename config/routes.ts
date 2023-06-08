@@ -2,7 +2,7 @@
  * @Author: YIDA-max 3136271519@qq.com
  * @Date: 2023-03-21 17:43:42
  * @LastEditors: YIDA-max 3136271519@qq.com
- * @LastEditTime: 2023-06-05 16:49:08
+ * @LastEditTime: 2023-06-07 10:13:50
  * @FilePath: /React-Ant/config/routes.ts
  * @Description:路由配置文件
  *
@@ -139,13 +139,13 @@ export default [
     routes: [
       {
         path: '/comics',
-        redirect: '/comics/comicsList',
+        redirect: '/comics/comicsShowInfo',
       },
       {
-        path: '/comics/comicsList',
+        path: '/comics/comicsShowInfo',
         name: '漫画列表',
         icon: 'FileTextOutlined',
-        component: './comics/comicsList',
+        component: './comics/comicsShowInfo',
       },
     ],
   },
