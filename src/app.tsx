@@ -2,8 +2,7 @@ import { AvatarDropdown, AvatarName, Footer, Question, SelectLang } from '@/comp
 import { getAssetsFile } from '@/components/head-portrait';
 import { currentUser as queryCurrentUser } from '@/services/ant-design-pro/api';
 import { LinkOutlined } from '@ant-design/icons';
-import type { Settings as LayoutSettings } from '@ant-design/pro-components';
-import { SettingDrawer } from '@ant-design/pro-components';
+import { SettingDrawer, Settings as LayoutSettings } from '@ant-design/pro-components';
 import type { RunTimeLayoutConfig } from '@umijs/max';
 import { history, Link } from '@umijs/max';
 import defaultSettings from '../config/defaultSettings';
@@ -128,6 +127,8 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
         </>
       );
     },
+    // 是否是加载中
+    loading: false,
     ...initialState?.settings,
     title: 'YIDA',
     logo: getAssetsFile(),

@@ -2,8 +2,8 @@
  * @Author: YIDA-max 3136271519@qq.com
  * @Date: 2023-06-05 16:57:56
  * @LastEditors: YIDA-max 3136271519@qq.com
- * @LastEditTime: 2023-06-06 15:21:21
- * @FilePath: /React-Ant/src/pages/comics/comicsList/components/comicsList/index.tsx
+ * @LastEditTime: 2023-06-12 15:05:57
+ * @FilePath: /React-Ant/src/pages/comics/comicsShowInfo/components/ComicsList/index.tsx
  * @Description: 列表组件的index
  *
  * Copyright (c) 2023 by ${git_name_email}, All Rights Reserved.
@@ -42,6 +42,7 @@ const Index: React.FC<IndexProps> = () => {
             <MangaBookShelf
               ArrayItem={value as Array<IListInfoItem>}
               title={ListTitle[key as keyof IListInfo]}
+              isSearch={false}
               key={index}
             />
           );

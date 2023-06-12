@@ -2,16 +2,18 @@
  * @Author: YIDA-max 3136271519@qq.com
  * @Date: 2023-06-05 16:57:56
  * @LastEditors: YIDA-max 3136271519@qq.com
- * @LastEditTime: 2023-06-06 16:43:18
- * @FilePath: /React-Ant/src/pages/comics/comicsList/components/comicsList/MangaBookShelf.tsx
+ * @LastEditTime: 2023-06-12 17:20:27
+ * @FilePath: /React-Ant/src/pages/comics/comicsShowInfo/components/ComicsList/MangaBookShelf.tsx
  * @Description: 列表组件的index
  *
  * Copyright (c) 2023 by ${git_name_email}, All Rights Reserved.
  */
 import { searchComics } from '@/api/comics/comicsList';
-import { Card, Image, Input, Tooltip, Typography } from 'antd';
+import { useModel } from '@umijs/max';
+import { Card, Image, Input, Spin, Typography } from 'antd';
 import PropTypes from 'prop-types';
 import React from 'react';
+import LookInfo from '../ComicsInfo';
 const { Paragraph } = Typography;
 const { Meta } = Card;
 interface IListInfoItemArray {
@@ -28,13 +30,13 @@ interface IndexProps {
 }
 const Index: React.FC<IndexProps> = ({ title, ArrayItem, isSearch }) => {
   const [ListInfo, setListInfo] = React.useState<Array<IListInfoItemArray>>([]);
+  const { userSpinning } = useModel('comicsShowInfoSpin');
   React.useEffect(() => {
     setListInfo(ArrayItem);
   }, [ArrayItem]);
   const onSearch = async (value: string) => {
     try {
       const { data } = await searchComics({ keyWord: value });
-      console.log(' ', data);
       if (data) {
         setListInfo(data);
       }
@@ -94,23 +96,19 @@ const Index: React.FC<IndexProps> = ({ title, ArrayItem, isSearch }) => {
                   height: '100%',
                 }}
               >
-                <Tooltip title={items.desc ? items.desc : items.name}>
-                  <Meta
-                    title={items.ttSection}
-                    description={
-                      <div>
-                        <Paragraph
-                          ellipsis={{ rows: 3, expandable: false }}
-                          onClick={() => {
-                            console.log(' ', 213124);
-                          }}
-                        >
-                          {items.desc ? items.desc : items.name ? items.name : ''}
-                        </Paragraph>
-                      </div>
-                    }
-                  />
-                </Tooltip>
+                <Meta
+                  title={items.ttSection}
+                  description={
+                    <div>
+                      <Spin spinning={userSpinning}>
+                        <LookInfo toUrl={items.toUrl} name={items.name} />
+                      </Spin>
+                      <Paragraph ellipsis={{ rows: 2, expandable: false }} onClick={() => {}}>
+                        {items.desc ? items.desc : items.name ? items.name : ''}
+                      </Paragraph>
+                    </div>
+                  }
+                />
               </Card>
             </div>
           );

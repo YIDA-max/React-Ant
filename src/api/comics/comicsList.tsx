@@ -2,7 +2,7 @@
  * @Author: YIDA-max 3136271519@qq.com
  * @Date: 2023-04-30 10:48:33
  * @LastEditors: YIDA-max 3136271519@qq.com
- * @LastEditTime: 2023-06-08 11:33:05
+ * @LastEditTime: 2023-06-12 11:44:42
  * @FilePath: /React-Ant/src/api/comics/comicsList.tsx
  * @Description:
  *
@@ -34,5 +34,14 @@ export const getComicsTable = (params: { current?: number; pageSize?: number }) 
   return request(`/comics/comicsTable`, {
     method: 'get',
     params,
+  });
+};
+/**
+ * 漫画详情接口modal弹窗
+ * */
+export const getComicsInfo = (data: { toUrl: string }) => {
+  return request(`/comics/getComicsInfo`, {
+    method: 'post',
+    data,
   });
 };
