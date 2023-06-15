@@ -1,5 +1,7 @@
 import { ProColumns } from '@ant-design/pro-components';
-import { Image } from 'antd';
+import { useModel } from '@umijs/max';
+import { Image, Spin } from 'antd';
+import LookInfo from '../../../ComicsInfo';
 type GithubIssueItem = {
   imgSrc: string;
   toUrl: string;
@@ -17,6 +19,22 @@ type GithubIssueItem = {
   created_at: string;
   updated_at: string;
   closed_at?: string;
+};
+// Define the props type
+interface RenderOptionProps {
+  record: {
+    toUrl: string;
+    name: string;
+  };
+}
+// Create the new function component
+const RenderOption: React.FC<RenderOptionProps> = ({ record }) => {
+  const { userSpinning } = useModel('comicsShowInfoSpin');
+  return (
+    <Spin spinning={userSpinning} key={1}>
+      <LookInfo toUrl={record.toUrl} name={record.name} />
+    </Spin>
+  );
 };
 const columns: ProColumns<GithubIssueItem>[] = [
   {
@@ -211,6 +229,12 @@ const columns: ProColumns<GithubIssueItem>[] = [
       );
     },
     hideInSearch: true, // 在表单中隐藏
+  },
+  {
+    title: '操作',
+    valueType: 'option',
+    key: 'option',
+    render: (text, record) => <RenderOption record={record} />,
   },
 ];
 

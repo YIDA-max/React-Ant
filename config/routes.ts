@@ -2,7 +2,7 @@
  * @Author: YIDA-max 3136271519@qq.com
  * @Date: 2023-03-21 17:43:42
  * @LastEditors: YIDA-max 3136271519@qq.com
- * @LastEditTime: 2023-06-12 11:08:53
+ * @LastEditTime: 2023-06-15 14:16:37
  * @FilePath: /React-Ant/config/routes.ts
  * @Description:路由配置文件
  *
@@ -146,6 +146,12 @@ export default [
         name: '漫画列表',
         icon: 'FileTextOutlined',
         component: './comics/comicsShowInfo',
+      },
+      {
+        path: '/comics/comicsView/:url',
+        name: '查看漫画',
+        hideInMenu: true,
+        component: './comics/comicsView',
       },
     ],
   },

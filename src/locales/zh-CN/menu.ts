@@ -2,7 +2,7 @@
  * @Author: YIDA-max 3136271519@qq.com
  * @Date: 2023-03-21 17:43:42
  * @LastEditors: YIDA-max 3136271519@qq.com
- * @LastEditTime: 2023-06-05 17:07:25
+ * @LastEditTime: 2023-06-15 14:25:39
  * @FilePath: /React-Ant/src/locales/zh-CN/menu.ts
  * @Description:
  *
@@ -67,5 +67,6 @@ export default {
   'menu.笔趣阁.小说阅读': '小说阅读',
   'menu.笔趣阁.我的书架': '我的书架',
   'menu.漫画柜.漫画列表': '漫画列表',
+  'menu.漫画柜.查看漫画': '查看漫画',
   'menu.漫画柜': '漫画柜',
 };
