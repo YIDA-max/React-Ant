@@ -2,7 +2,7 @@
  * @Author: YIDA-max 3136271519@qq.com
  * @Date: 2023-05-18 16:43:05
  * @LastEditors: YIDA-max 3136271519@qq.com
- * @LastEditTime: 2023-06-15 15:42:55
+ * @LastEditTime: 2023-06-15 16:23:43
  * @FilePath: /React-Ant/src/pages/comics/comicsView/index.tsx
  * @Description:
  *
@@ -38,13 +38,12 @@ const Index: React.FC = () => {
       m: '',
     },
   });
-  const [page, setpage] = useState<number>(1);
+  const [page, setpage] = useState<number>();
   const [img, setimg] = useState<string>('');
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     const onMount = async () => {
       setLoading(true);
-      setpage(1);
       // 如果url是空白就需要返回
       if (url !== 'undefined') {
         const data = await getViewComicChapter({
@@ -52,18 +51,8 @@ const Index: React.FC = () => {
         });
         if (data.code === 200) {
           setcomicsInfo(data.data);
-          setTimeout(async () => {
-            const img = await getViewComicsImg({
-              sl: comicsInfo.sl,
-              cid: comicsInfo.cid,
-              path: comicsInfo.path,
-              file: comicsInfo.files[0],
-            });
-            if (img.code === 200) {
-              setimg(img.data);
-              setLoading(false);
-            }
-          }, 100);
+          setpage(1);
+          setLoading(true);
         }
       } else {
         message.error('漫画章节错误');
@@ -72,6 +61,21 @@ const Index: React.FC = () => {
     };
     onMount();
   }, [url]);
+  useEffect(() => {
+    const onMount = async () => {
+      const img = await getViewComicsImg({
+        sl: comicsInfo.sl,
+        cid: comicsInfo.cid,
+        path: comicsInfo.path,
+        file: comicsInfo.files[0],
+      });
+      if (img.code === 200) {
+        setimg(img.data);
+        setLoading(false);
+      }
+    };
+    onMount();
+  }, [page]);
   // 页签改变获取数据
   const changePage = async (page: number) => {
     setLoading(true);
@@ -90,7 +94,21 @@ const Index: React.FC = () => {
   return (
     <div>
       <Spin indicator={antIcon} spinning={loading}>
-        <Card title={comicsInfo.bname}>
+        <Card
+          title={comicsInfo.bname}
+          extra={
+            <div
+              onClick={() => {
+                const encodedUrl = encodeURIComponent(
+                  `http://www.manhuagui.com/comic/${comicsInfo.bid}/${comicsInfo.nextId}.html`,
+                );
+                history.push(`/comics/comicsView/${encodedUrl}`);
+              }}
+            >
+              下一章
+            </div>
+          }
+        >
           <div style={{ textAlign: 'center' }}>
             <Image src={img} alt="" preview={true} height={730} />
           </div>
