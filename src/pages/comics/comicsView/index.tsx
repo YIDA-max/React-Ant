@@ -2,7 +2,7 @@
  * @Author: YIDA-max 3136271519@qq.com
  * @Date: 2023-05-18 16:43:05
  * @LastEditors: YIDA-max 3136271519@qq.com
- * @LastEditTime: 2023-06-15 16:23:43
+ * @LastEditTime: 2023-06-16 11:07:18
  * @FilePath: /React-Ant/src/pages/comics/comicsView/index.tsx
  * @Description:
  *
@@ -11,7 +11,7 @@
 import { getViewComicChapter, getViewComicsImg } from '@/api/comics/comicsView';
 import { LoadingOutlined } from '@ant-design/icons';
 import { useParams } from '@umijs/max';
-import { Card, Image, message, Pagination, Spin } from 'antd';
+import { Button, Card, Image, message, Pagination, Spin } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { history } from 'umi';
 import { IInfo } from './types';
@@ -38,7 +38,7 @@ const Index: React.FC = () => {
       m: '',
     },
   });
-  const [page, setpage] = useState<number>();
+  const [page, setpage] = useState<number>(1);
   const [img, setimg] = useState<string>('');
   const [loading, setLoading] = useState(false);
   useEffect(() => {
@@ -50,9 +50,19 @@ const Index: React.FC = () => {
           toUrl: url as string,
         });
         if (data.code === 200) {
+          // 设置漫画信息
           setcomicsInfo(data.data);
-          setpage(1);
           setLoading(true);
+          const img = await getViewComicsImg({
+            sl: data.data.sl,
+            cid: data.data.cid,
+            path: data.data.path,
+            file: data.data.files[0],
+          });
+          if (img.code === 200) {
+            setimg(img.data);
+            setLoading(false);
+          }
         }
       } else {
         message.error('漫画章节错误');
@@ -61,21 +71,6 @@ const Index: React.FC = () => {
     };
     onMount();
   }, [url]);
-  useEffect(() => {
-    const onMount = async () => {
-      const img = await getViewComicsImg({
-        sl: comicsInfo.sl,
-        cid: comicsInfo.cid,
-        path: comicsInfo.path,
-        file: comicsInfo.files[0],
-      });
-      if (img.code === 200) {
-        setimg(img.data);
-        setLoading(false);
-      }
-    };
-    onMount();
-  }, [page]);
   // 页签改变获取数据
   const changePage = async (page: number) => {
     setLoading(true);
@@ -98,14 +93,41 @@ const Index: React.FC = () => {
           title={comicsInfo.bname}
           extra={
             <div
-              onClick={() => {
-                const encodedUrl = encodeURIComponent(
-                  `http://www.manhuagui.com/comic/${comicsInfo.bid}/${comicsInfo.nextId}.html`,
-                );
-                history.push(`/comics/comicsView/${encodedUrl}`);
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                width: '200px',
               }}
             >
-              下一章
+              <Button
+                onClick={() => {
+                  history.push(`/comics/comicsShowInfo`);
+                }}
+              >
+                返回列表
+              </Button>
+              <Button
+                onClick={() => {
+                  const encodedUrl = encodeURIComponent(
+                    `http://www.manhuagui.com/comic/${comicsInfo.bid}/${comicsInfo.prevId}.html`,
+                  );
+                  history.push(`/comics/comicsView/${encodedUrl}`);
+                  setpage(1);
+                }}
+              >
+                上一章
+              </Button>
+              <Button
+                onClick={() => {
+                  const encodedUrl = encodeURIComponent(
+                    `http://www.manhuagui.com/comic/${comicsInfo.bid}/${comicsInfo.nextId}.html`,
+                  );
+                  history.push(`/comics/comicsView/${encodedUrl}`);
+                  setpage(1);
+                }}
+              >
+                下一章
+              </Button>
             </div>
           }
         >
