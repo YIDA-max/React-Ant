@@ -155,4 +155,22 @@ export default [
       },
     ],
   },
+  {
+    name: 'Mooncell',
+    path: '/mooncell',
+    icon: 'FileTextOutlined',
+    footerRender: false,
+    routes: [
+      {
+        path: '/mooncell',
+        redirect: '/mooncell/homePage',
+      },
+      {
+        path: '/mooncell/homePage',
+        name: '主页',
+        icon: 'FileTextOutlined',
+        component: './Mooncell/homePage',
+      },
+    ],
+  },
 ];

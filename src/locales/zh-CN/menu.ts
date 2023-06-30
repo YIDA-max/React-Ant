@@ -69,4 +69,6 @@ export default {
   'menu.漫画柜.漫画列表': '漫画列表',
   'menu.漫画柜.查看漫画': '查看漫画',
   'menu.漫画柜': '漫画柜',
+  'menu.Mooncell': 'Mooncell',
+  'menu.Mooncell.主页': '主页',
 };

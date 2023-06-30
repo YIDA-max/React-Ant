@@ -2,7 +2,7 @@
  * @Author: YIDA-max 3136271519@qq.com
  * @Date: 2023-05-18 16:43:05
  * @LastEditors: YIDA-max 3136271519@qq.com
- * @LastEditTime: 2023-06-16 11:07:18
+ * @LastEditTime: 2023-06-16 16:11:09
  * @FilePath: /React-Ant/src/pages/comics/comicsView/index.tsx
  * @Description:
  *
@@ -43,6 +43,8 @@ const Index: React.FC = () => {
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     const onMount = async () => {
+      // 初始化
+      setpage(1);
       setLoading(true);
       // 如果url是空白就需要返回
       if (url !== 'undefined') {
@@ -53,6 +55,7 @@ const Index: React.FC = () => {
           // 设置漫画信息
           setcomicsInfo(data.data);
           setLoading(true);
+          // 改变url的时候,需要重新获取图片获取第一张
           const img = await getViewComicsImg({
             sl: data.data.sl,
             cid: data.data.cid,
@@ -86,6 +89,16 @@ const Index: React.FC = () => {
       setLoading(false);
     }
   };
+  // 改变章节的函数
+  const changeChapter = async (isNext: boolean) => {
+    const encodedUrl = encodeURIComponent(
+      `http://www.manhuagui.com/comic/${comicsInfo.bid}/${
+        isNext ? comicsInfo.nextId : comicsInfo.prevId
+      }.html`,
+    );
+    history.push(`/comics/comicsView/${encodedUrl}`);
+    setpage(1);
+  };
   return (
     <div>
       <Spin indicator={antIcon} spinning={loading}>
@@ -96,7 +109,7 @@ const Index: React.FC = () => {
               style={{
                 display: 'flex',
                 justifyContent: 'space-between',
-                width: '200px',
+                width: '400px',
               }}
             >
               <Button
@@ -108,31 +121,39 @@ const Index: React.FC = () => {
               </Button>
               <Button
                 onClick={() => {
-                  const encodedUrl = encodeURIComponent(
-                    `http://www.manhuagui.com/comic/${comicsInfo.bid}/${comicsInfo.prevId}.html`,
-                  );
-                  history.push(`/comics/comicsView/${encodedUrl}`);
-                  setpage(1);
+                  changeChapter(false);
                 }}
               >
                 上一章
               </Button>
               <Button
                 onClick={() => {
-                  const encodedUrl = encodeURIComponent(
-                    `http://www.manhuagui.com/comic/${comicsInfo.bid}/${comicsInfo.nextId}.html`,
-                  );
-                  history.push(`/comics/comicsView/${encodedUrl}`);
-                  setpage(1);
+                  changeChapter(true);
                 }}
               >
                 下一章
+              </Button>
+              <Button
+                disabled={page === 1}
+                onClick={async () => {
+                  changePage(page - 1);
+                }}
+              >
+                上一页
+              </Button>
+              <Button
+                disabled={page === comicsInfo.files.length}
+                onClick={async () => {
+                  changePage(page + 1);
+                }}
+              >
+                下一页
               </Button>
             </div>
           }
         >
           <div style={{ textAlign: 'center' }}>
-            <Image src={img} alt="" preview={true} height={730} />
+            <Image src={img} alt="" preview={true} />
           </div>
         </Card>
         <Pagination

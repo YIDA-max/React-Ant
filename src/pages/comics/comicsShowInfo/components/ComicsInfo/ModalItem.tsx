@@ -2,7 +2,7 @@
  * @Author: YIDA-max 3136271519@qq.com
  * @Date: 2023-05-18 11:33:46
  * @LastEditors: YIDA-max 3136271519@qq.com
- * @LastEditTime: 2023-06-15 14:25:09
+ * @LastEditTime: 2023-06-16 16:30:16
  * @FilePath: /React-Ant/src/pages/comics/comicsShowInfo/components/ComicsInfo/ModalItem.tsx
  * @Description:
  *
@@ -30,6 +30,7 @@ const Index: React.FC<IInfo> = (info) => {
       <Paragraph ellipsis={{ rows: 3, expandable: false }} onClick={() => {}}>
         {info.heand.allIntro}
       </Paragraph>
+      <Button onClick={() => {}}>下载</Button>
       <h2>猜你喜欢</h2>
       <div className={style.infolike}>
         {info.like.map((item) => {
